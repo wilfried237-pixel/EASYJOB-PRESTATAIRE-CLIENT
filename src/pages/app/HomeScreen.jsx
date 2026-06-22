@@ -204,12 +204,6 @@ const FreelancerHome=({user,data,lang,setSub,setSelM,setPage})=>{
               {user.nom} <span style={{fontSize:12,color:C.brand,fontWeight:600}}>· {lang==='fr'?'Prestataire':'Provider'}</span>
             </div>
           </div>
-          <button onClick={()=>setSub('notifications')}
-            style={{width:38,height:38,borderRadius:10,background:'rgba(255,255,255,.07)',
-              border:'1px solid rgba(255,255,255,.1)',cursor:'pointer',
-              display:'flex',alignItems:'center',justifyContent:'center'}}>
-            <Bell size={15} color="rgba(255,255,255,.55)"/>
-          </button>
         </div>
 
         {/* Mini stats */}
@@ -378,17 +372,6 @@ const HomeScreen=({user,data,setData,lang,setSub,setSelFL,setSelM,setPage,addLog
           </span>
         </div>
 
-        {/* Notifs */}
-        <button onClick={()=>setSub('notifications')}
-          style={{width:40,height:40,borderRadius:10,background:'rgba(255,255,255,.07)',
-            border:'1px solid rgba(255,255,255,.1)',cursor:'pointer',
-            display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,position:'relative'}}>
-          <Bell size={16} color="rgba(255,255,255,.55)"/>
-          {data.notifs.filter(n=>!n.read).length>0&&(
-            <span style={{position:'absolute',top:7,right:7,width:7,height:7,
-              borderRadius:4,background:C.terre,border:`2px solid ${C.nuit}`}}/>
-          )}
-        </button>
       </div>
 
       {/* ── CARTE (simulée) ── */}
@@ -612,9 +595,6 @@ const HomeScreen=({user,data,setData,lang,setSub,setSelFL,setSelM,setPage,addLog
           </div>
         )}
       </div>
-
-      {/* ── MODAL TÂCHE ÉCLAIR ── */}
-      {showEclair&&<EclairModal onClose={()=>setShowEclair(false)} lang={lang}/>}
 
       {/* ── STYLES ANIMATIONS ── */}
       <style>{`

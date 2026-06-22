@@ -10,24 +10,14 @@ import { Login, ChooseRole, RegisterClient, RegisterFreelancer } from './pages/a
 import { Sidebar, BottomNav } from './components/layout'
 import HomeScreen from './pages/app/HomeScreen'
 import ExploreScreen from './pages/app/ExploreScreen'
-import { MessagesScreen, ChatScreen } from './pages/app/MessagesScreen'
 import PostJobScreen from './pages/app/PostJobScreen'
 import { ProfilScreen } from './pages/app/ProfilScreen'
-import { NotificationsScreen, JournalScreen, SettingsScreen, AideScreen } from './pages/app/MiscScreens'
 import { FreelancerDetail, MissionDetail, MesMissionsScreen, EditProfilScreen } from './pages/app/DetailScreens'
-import AdminScreen from './pages/app/AdminScreen'
-import ProposalsScreen from './pages/app/ProposalsScreen'
 import LitigesScreen from './pages/app/LitigesScreen'
-import DashboardScreen from './pages/app/DashboardScreen'
 import ReviewsScreen from './pages/app/ReviewsScreen'
-import ContractScreen from './pages/app/ContractScreen'
-import SecurityScreen from './pages/app/SecurityScreen'
 import SearchScreen from './pages/app/SearchScreen'
-import StatsScreen from './pages/app/StatsScreen'
-import NotificationCenterScreen from './pages/app/NotificationCenterScreen'
-import TeamManagementScreen from './pages/app/TeamManagementScreen'
 
-const APP_PAGES = new Set(['home', 'explore', 'missions', 'postjob', 'messages', 'profil'])
+const APP_PAGES = new Set(['home', 'explore', 'missions', 'postjob', 'profil'])
 
 const INITIAL_STATE = {
   freelancers: FLS,
@@ -96,7 +86,6 @@ function AppRouter() {
   const [sub, setSubState] = useState(null)
   const [selFL, setSelFLState] = useState(null)
   const [selM, setSelMState] = useState(null)
-  const [selConv, setSelConvState] = useState(null)
 
   useEffect(() => {
     try {
@@ -147,7 +136,6 @@ function AppRouter() {
     setSubState(null)
     setSelFLState(null)
     setSelMState(null)
-    setSelConvState(null)
     toast.success(lang === 'fr' ? 'Déconnecté' : 'Logged out')
     navigate('/', { replace: true })
   }, [addLog, lang, navigate, session?.user?.nom])
@@ -192,11 +180,6 @@ function AppRouter() {
   const handleSelectMission = useCallback(mission => {
     setSelMState(mission)
     setSubState('mission')
-  }, [])
-
-  const handleSelectConversation = useCallback(conv => {
-    setSelConvState(conv)
-    setSubState('chat')
   }, [])
 
   const unreadMsg = data.convs.reduce((sum, conv) => sum + (conv.unread || 0), 0)
@@ -260,25 +243,12 @@ function AppRouter() {
       ...(!isMobile ? { left: 240 } : {}),
     }
 
-    if (sub === 'chat' && selConv) return <div style={wrap}><ChatScreen conv={selConv} onBack={() => handleSetSub(null)} {...subProps} /></div>
-    if (sub === 'proposals') return <div style={wrap}><ProposalsScreen onBack={() => handleSetSub(null)} setSub={handleSetSub} setSelConv={handleSelectConversation} {...subProps} /></div>
     if (sub === 'litiges') return <div style={wrap}><LitigesScreen onBack={() => handleSetSub(null)} {...subProps} /></div>
-    if (sub === 'admin') return <div style={wrap}><AdminScreen onBack={() => handleSetSub(null)} lang={lang} data={data} setData={setData} addLog={addLog} /></div>
-    if (sub === 'journal') return <div style={wrap}><JournalScreen logs={logs} setLogs={setLogs} onBack={() => handleSetSub(null)} lang={lang} /></div>
-    if (sub === 'notifications') return <div style={wrap}><NotificationsScreen onBack={() => handleSetSub(null)} {...subProps} /></div>
-    if (sub === 'mes-missions') return <div style={wrap}><MesMissionsScreen onBack={() => handleSetSub(null)} {...subProps} /></div>
+    if (sub === 'mes-missions') return <div style={wrap}><MesMissionsScreen onBack={() => handleSetSub(null)} setData={setData} {...subProps} /></div>
     if (sub === 'mission' && selM) return <div style={wrap}><MissionDetail m={selM} onBack={() => handleSetSub(null)} {...subProps} /></div>
     if (sub === 'edit-profil') return <div style={wrap}><EditProfilScreen onBack={() => handleSetSub(null)} setUser={updateUser} {...subProps} /></div>
-    if (sub === 'settings') return <div style={wrap}><SettingsScreen onBack={() => handleSetSub(null)} lang={lang} setLang={setLang} user={displayUser} /></div>
-    if (sub === 'dashboard') return <div style={wrap}><DashboardScreen user={displayUser} data={data} lang={lang} onBack={() => handleSetSub(null)} setSub={handleSetSub} setPage={handleSetPage} /></div>
     if (sub === 'reviews') return <div style={wrap}><ReviewsScreen user={displayUser} lang={lang} onBack={() => handleSetSub(null)} /></div>
-    if (sub === 'contracts') return <div style={wrap}><ContractScreen user={displayUser} data={data} lang={lang} onBack={() => handleSetSub(null)} /></div>
-    if (sub === 'security') return <div style={wrap}><SecurityScreen user={displayUser} lang={lang} onBack={() => handleSetSub(null)} /></div>
     if (sub === 'search') return <div style={wrap}><SearchScreen data={data} lang={lang} onBack={() => handleSetSub(null)} onSelectFL={handleSelectFreelancer} onSelectM={handleSelectMission} /></div>
-    if (sub === 'stats') return <div style={wrap}><StatsScreen data={data} lang={lang} onBack={() => handleSetSub(null)} /></div>
-    if (sub === 'notif-center') return <div style={wrap}><NotificationCenterScreen lang={lang} onBack={() => handleSetSub(null)} /></div>
-    if (sub === 'team') return <div style={wrap}><TeamManagementScreen lang={lang} onBack={() => handleSetSub(null)} /></div>
-    if (sub === 'aide') return <div style={wrap}><AideScreen onBack={() => handleSetSub(null)} lang={lang} /></div>
 
     return null
   }
@@ -288,13 +258,11 @@ function AppRouter() {
       case 'home':
         return <HomeScreen {...pageProps} />
       case 'explore':
-        return <ExploreScreen {...pageProps} setSelConv={handleSelectConversation} />
+        return <ExploreScreen {...pageProps} />
       case 'missions':
         return <MesMissionsScreen user={displayUser} data={data} setData={setData} lang={lang} addLog={addLog} />
       case 'postjob':
         return <PostJobScreen {...pageProps} />
-      case 'messages':
-        return <MessagesScreen {...pageProps} setSelConv={handleSelectConversation} />
       case 'profil':
         return <ProfilScreen {...pageProps} setUser={updateUser} onLogout={handleLogout} />
       default:

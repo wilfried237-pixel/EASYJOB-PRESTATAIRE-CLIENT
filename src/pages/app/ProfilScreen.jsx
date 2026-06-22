@@ -36,20 +36,13 @@ const ProfilScreen=({user,data,lang,setSub,onLogout})=>{
     {icon:Edit3,fr:'Editer le profil',en:'Edit profile',action:()=>setSub('edit-profil')},
     {icon:Briefcase,fr:'Mes missions',en:'My jobs',action:()=>setSub('mes-missions')},
     {icon:Flag,fr:'Signalements',en:'Reports',action:()=>setSub('litiges')},
-    {icon:Bell,fr:'Notifications',en:'Notifications',action:()=>setSub('notifications')},
-    {icon:Settings,fr:'Parametres',en:'Settings',action:()=>setSub('settings')},
     {icon:Star,fr:'Mes avis',en:'My reviews',action:()=>setSub('reviews')},
-    {icon:Activity,fr:"Journal d'activite",en:'Activity log',action:()=>setSub('journal')},
-    {icon:Info,fr:'Aide & Support',en:'Help & Support',action:()=>setSub('aide')},
   ]:[
     {icon:Edit3,fr:'Editer mes informations',en:'Edit my details',action:()=>setSub('edit-profil')},
     {icon:FileText,fr:'Mes missions publiees',en:'My posted jobs',action:()=>setSub('mes-missions')},
-    {icon:MessageSquare,fr:'Propositions recues',en:'Received proposals',action:()=>setSub('proposals')},
     {icon:Shield,fr:'Verification identite',en:'Identity verification',action:()=>setSub('edit-profil')},
     {icon:Flag,fr:'Signalements',en:'Reports',action:()=>setSub('litiges')},
-    {icon:Bell,fr:'Notifications',en:'Notifications',action:()=>setSub('notifications')},
-    {icon:Settings,fr:'Parametres',en:'Settings',action:()=>setSub('settings')},
-    {icon:HelpCircle,fr:'Aide & Support',en:'Help & Support',action:()=>setSub('aide')},
+    {icon:Star,fr:'Mes avis',en:'My reviews',action:()=>setSub('reviews')},
   ]
 
   return(
