@@ -40,6 +40,7 @@ const PostJobScreen=({user,data,setData,lang,setPage,addLog})=>{
       props:0,statut:'ouverte',postedAt:'À l\'instant',client:{nom:user.nom,av:user.initials,note:5.0},
     }
     const newJob={id:Date.now()+1,title:form.title,flId:null,status:'ouverte',amount:0,date:"À l'instant",emoji:cat?.emoji||'📋'}
+    newJob.missionId = newMission.id
     setData(d=>({...d,missions:[newMission,...d.missions],myJobs:[newJob,...d.myJobs]}))
     addLog('data',`Mission publiée: ${form.title}`,`Job posted: ${form.title}`,user.nom)
     toast.success(lang==='fr'?'✅ Mission publiée !':'✅ Job posted!')
